@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Facebook.Configuration;
 
 namespace Facebook
 {
@@ -13,6 +13,9 @@ namespace Facebook
 
         public static IServiceCollection AddFacebookAPI(this IServiceCollection services, IConfiguration configuration = null, string configurationSection = "facebookApi")
         {
+            if (configuration != null && !string.IsNullOrEmpty(configurationSection))
+                services.Configure<FacebookApiConfig>(configuration.GetSection(configurationSection));
+
             services.AddHttpClient(HTTP_CLIENT_NAME, (serviceProvider, client) =>
                 {
                     client.DefaultRequestHeaders.Clear();

@@ -5,6 +5,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Facebook.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 
@@ -12,6 +14,7 @@ namespace Facebook
 {
     public class FacebookApi
     {
+        private readonly IOptionsSnapshot<FacebookApiConfig> _facebookApiConfig;
         private readonly HttpClient _httpClient;
 
         public string AccessToken { get; set; }
@@ -29,8 +32,9 @@ namespace Facebook
             this.ApiVersion = apiVersion;
         }
 
-        public FacebookApi(IHttpClientFactory httpClientFactory)
+        public FacebookApi(IHttpClientFactory httpClientFactory, IOptionsSnapshot<FacebookApiConfig> facebookApiConfig)
         {
+            _facebookApiConfig = facebookApiConfig;
             _httpClient = httpClientFactory.CreateClient(ServiceRegistrationExtensions.HTTP_CLIENT_NAME);
         }
 
@@ -84,8 +88,11 @@ namespace Facebook
             if (url?.StartsWith("http", StringComparison.OrdinalIgnoreCase) != true)
             {
                 sBuilder.Append("https://graph.facebook.com/");
+
                 if (!string.IsNullOrEmpty(this.ApiVersion))
                     sBuilder.Append("v").Append(this.ApiVersion).Append("/");
+                else if (!string.IsNullOrEmpty(_facebookApiConfig?.Value?.ApiVersion))
+                    sBuilder.Append("v").Append(_facebookApiConfig?.Value?.ApiVersion).Append("/");
             }
 
             sBuilder.Append(url?.StartsWith("/") == true ? url.Substring(1) : url);

@@ -1,0 +1,9 @@
+﻿{
+  "facebookApi": {
+    /* API version. If non filled, oldest is used. */
+    "apiVersion": "3.2",
+    "appId": "your app id",
+    "appSecret": "your app secret",
+    "appRedirectUrl": "your app redirect url"
+  }
+}
