@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Facebook.Api.Client;
+using Facebook;
 
 namespace TestConsoleClient
 {
@@ -8,9 +8,16 @@ namespace TestConsoleClient
     {
         static async Task Main(string[] args)
         {
-            var facebookClient = new FacebookClient("EAAKEKTQXJzkBAK4ZCenOg5J2YDszZBITE1SfjZBr1r8xiXouhZC18NZCb79ij5aSHLHSgBUgWZBfHPZA1dHsy1v725BePCRkvsJqG8SFMSenDqCtZBaoBy7UBfzlSgGhYjtx9jZAw0qj2Xx3j1XKo6uTNtFw290SLKcGHpZAHXVi9PCgZDZD");
+            var facebookClient = new FacebookApi("shit");
 
-            var meInfo = await facebookClient.GetAsync("me");
+            try
+            {
+                var meInfo = await facebookClient.GetAsync("me");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

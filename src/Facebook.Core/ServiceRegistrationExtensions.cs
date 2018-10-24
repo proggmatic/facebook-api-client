@@ -5,17 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Facebook.Api.Client
+namespace Facebook
 {
     public static class ServiceRegistrationExtensions
     {
         internal const string HTTP_CLIENT_NAME = "FacebookApiHttpClient";
 
-        public static IServiceCollection AddBeelineAPI(this IServiceCollection services)
+        public static IServiceCollection AddFacebookAPI(this IServiceCollection services, IConfiguration configuration = null, string configurationSection = "facebookApi")
         {
-            //if (configuration != null && !string.IsNullOrEmpty(configurationSection))
-            //    services.Configure<BeelineApiConfig>(configuration.GetSection(configurationSection));
-
             services.AddHttpClient(HTTP_CLIENT_NAME, (serviceProvider, client) =>
                 {
                     client.DefaultRequestHeaders.Clear();
@@ -23,9 +20,6 @@ namespace Facebook.Api.Client
                         .Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 })
                 .ConfigureHttpMessageHandlerBuilder(config => config.PrimaryHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
-
-            //services.AddHttpClient<BeelineApiHttpClient>()
-            //    .AddHttpMessageHandler(c => new  HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
 
             return services;
         }

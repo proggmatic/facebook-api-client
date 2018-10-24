@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Facebook.Api.Client
+namespace Facebook
 {
     /// <summary>
     /// Represents errors that occur as a result of problems with the OAuth access token.
@@ -16,15 +16,14 @@ namespace Facebook.Api.Client
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FacebookApiLimitException"/> class. 
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public FacebookApiLimitException(string message)
-            : base(message)
+        public FacebookApiLimitException(FacebookError error) : base(error.Message)
         {
+            this.ErrorType = error.Type;
+            this.ErrorCode = error.Code;
+            this.ErrorSubcode = error.ErrorSubcode;
+            this.ErrorUserMsg = error.ErrorUserMsg;
+            this.ErrorUserTitle = error.ErrorUserTitle;
+            this.FbTraceId = error.FbTraceId;
         }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace Facebook.Api.Client
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="errorType">The error type.</param>
-        public FacebookApiLimitException(string message, string errorType)
+        public FacebookApiLimitException(string message, string errorType = default)
             : base(message, errorType)
         {
         }

@@ -2,16 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <RootNamespace>Facebook</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0</Version>
+    <Version>1.0.0-beta1</Version>
     <PackageId>Facebook.Api.Client</PackageId>
 
-    <AssemblyTitle>Client for Facebook API</AssemblyTitle>
+    <Title>Facebook API client</Title>
+    <AssemblyTitle>Facebook API client</AssemblyTitle>
     <Authors>Oleg Kuznetsov</Authors>
-    <Description>Client for Facebook API</Description>
+    <Description>Simple client for Facebook API for .NET Core. Based on HttpClient and Json.NET</Description>
+    <PackageTags>Facebook,netcore</PackageTags>
+
+    <PackageReleaseNotes>Initial version. Basic functionality only.</PackageReleaseNotes>
+
+    <PackageProjectUrl>https://github.com/proggmatic/Facebook.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/proggmatic/Facebook.Core</RepositoryUrl>
+    <PackageIconUrl>https://github.com/proggmatic/Facebook.Core/tree/master/_docs/facebook-cs-nodown-64.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

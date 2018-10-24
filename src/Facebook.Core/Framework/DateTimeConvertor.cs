@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Facebook.Api.Client
+namespace Facebook
 {
     /// <summary>
     /// Utilities to convert dates to and from unix time.

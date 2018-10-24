@@ -3,13 +3,52 @@ using System.Collections.Generic;
 using System.Globalization;
 
 
-namespace Facebook.Api.Client
+namespace Facebook
 {
     /// <summary>
     /// Represents the authentication result of Facebook.
     /// </summary>
     public class FacebookOAuthResult
     {
+        /// <summary>
+        /// Error that happens when using OAuth2 protocol.
+        /// </summary>
+        /// <remarks>
+        /// https://developers.facebook.com/docs/oauth/errors/
+        /// </remarks>
+        public virtual string Error { get; }
+
+        /// <summary>
+        /// Gets the short error reason for failed authentication if an error occurred.
+        /// </summary>
+        public virtual string ErrorReason { get; }
+
+        /// <summary>
+        /// Gets the long error description for failed authentication if an error occurred.
+        /// </summary>
+        public virtual string ErrorDescription { get; }
+
+        /// <summary>
+        /// Gets the <see cref="DateTime"/> when the access token will expire.
+        /// </summary>
+        public virtual DateTime Expires { get; }
+
+        /// <summary>
+        /// Gets the access token.
+        /// </summary>
+        public virtual string AccessToken { get; }
+
+        /// <summary>
+        /// Gets the code used to exchange with Facebook to retrieve access token.
+        /// </summary>
+        public virtual string Code { get; }
+
+        /// <summary>
+        /// Gets an opaque state used to maintain application state between the request and callback.
+        /// </summary>
+        public virtual string State { get; }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FacebookOAuthResult"/> class.
         /// </summary>
@@ -70,48 +109,12 @@ namespace Facebook.Api.Client
             }
         }
 
-        /// <summary>
-        /// Error that happens when using OAuth2 protocol.
-        /// </summary>
-        /// <remarks>
-        /// https://developers.facebook.com/docs/oauth/errors/
-        /// </remarks>
-        public virtual string Error { get; }
 
-        /// <summary>
-        /// Gets the short error reason for failed authentication if an error occurred.
-        /// </summary>
-        public virtual string ErrorReason { get; }
-
-        /// <summary>
-        /// Gets the long error description for failed authentication if an error occurred.
-        /// </summary>
-        public virtual string ErrorDescription { get; }
-
-        /// <summary>
-        /// Gets the <see cref="DateTime"/> when the access token will expire.
-        /// </summary>
-        public virtual DateTime Expires { get; }
-
-        /// <summary>
-        /// Gets the access token.
-        /// </summary>
-        public virtual string AccessToken { get; }
 
         /// <summary>
         /// Gets a value indicating whether access token or code was successfully retrieved.
         /// </summary>
         public virtual bool IsSuccess => string.IsNullOrEmpty(Error) &&
                                          (!string.IsNullOrEmpty(AccessToken) || !string.IsNullOrEmpty(Code));
-
-        /// <summary>
-        /// Gets the code used to exchange with Facebook to retrieve access token.
-        /// </summary>
-        public virtual string Code { get; }
-
-        /// <summary>
-        /// Gets an opaque state used to maintain application state between the request and callback.
-        /// </summary>
-        public virtual string State { get; }
     }
 }
