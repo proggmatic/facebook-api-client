@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 
 namespace Facebook
@@ -16,36 +16,36 @@ namespace Facebook
         /// Gets or sets the type of the error.
         /// </summary>
         /// <value>The type of the error.</value>
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string ErrorType { get; set; }
 
         /// <summary>
         /// Gets or sets the code of the error.
         /// </summary>
         /// <value>The code of the error.</value>
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public int? ErrorCode { get; set; }
 
         /// <summary>
         /// Gets or sets the error subcode.
         /// </summary>
         /// <value>The code of the error subcode.</value>
-        [JsonProperty("error_subcode")]
+        [JsonPropertyName("error_subcode")]
         public int? ErrorSubcode { get; set; }
 
         /// <summary>
         /// Gets or sets the error user title.
         /// </summary>
-        [JsonProperty("error_user_title")]
+        [JsonPropertyName("error_user_title")]
         public string ErrorUserTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the error user message.
         /// </summary>
-        [JsonProperty("error_user_msg")]
+        [JsonPropertyName("error_user_msg")]
         public string ErrorUserMsg { get; set; }
 
-        [JsonProperty("fbtrace_id")]
+        [JsonPropertyName("fbtrace_id")]
         public string FbTraceId { get; set; }
 
 

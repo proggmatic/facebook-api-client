@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
 
+
 namespace Facebook
 {
     /// <summary>
     /// Utilities to convert dates to and from unix time.
     /// </summary>
-    public static class DateTimeConvertor
+    internal static class DateTimeConverter
     {
         private static readonly string[] Iso8601Format =
         {

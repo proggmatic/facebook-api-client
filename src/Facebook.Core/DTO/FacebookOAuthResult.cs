@@ -110,7 +110,6 @@ namespace Facebook
         }
 
 
-
         /// <summary>
         /// Gets a value indicating whether access token or code was successfully retrieved.
         /// </summary>

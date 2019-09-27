@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Facebook.Configuration;
+
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 
 namespace Facebook
@@ -51,7 +51,7 @@ namespace Facebook
 
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            T result = JsonConvert.DeserializeObject<T>(content);
+            T result = JsonSerializer.Deserialize<T>(content);
             return result;
         }
 
@@ -59,12 +59,12 @@ namespace Facebook
         {
             ProcessUrl(ref url);
 
-            var response = await _httpClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json"), cancellationToken).ConfigureAwait(false);
+            var response = await _httpClient.PostAsync(url, new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json"), cancellationToken).ConfigureAwait(false);
             EnsureSuccessResponse(response);
 
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            T result = JsonConvert.DeserializeObject<T>(content);
+            T result = JsonSerializer.Deserialize<T>(content);
             return result;
         }
 
@@ -77,7 +77,7 @@ namespace Facebook
 
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            T result = JsonConvert.DeserializeObject<T>(content);
+            T result = JsonSerializer.Deserialize<T>(content);
             return result;
         }
 
@@ -109,7 +109,7 @@ namespace Facebook
 
             var content = response.Content.ReadAsStringAsync().Result;
 
-            var error = JsonConvert.DeserializeObject<FacebookGenericError>(content).Error;
+            var error = JsonSerializer.Deserialize<FacebookGenericError>(content).Error;
             if (string.Equals(error.Type, "OAuthException", StringComparison.OrdinalIgnoreCase))
                 throw new FacebookOAuthException(error);
 

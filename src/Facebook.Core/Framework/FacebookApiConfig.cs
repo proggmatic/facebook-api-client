@@ -1,4 +1,4 @@
-﻿namespace Facebook.Configuration
+﻿namespace Facebook
 {
     public class FacebookApiConfig
     {
