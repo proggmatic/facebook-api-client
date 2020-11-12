@@ -6,12 +6,12 @@ $currentLocation = Get-Location
 
 
 #--- Set this variables ---#
-Set-Location "../src/Facebook.Core"                                                  # relative to current location or full path
+Set-Location "../src/Facebook.Api.Client"                                            # relative to current location or full path
 $buildDir = "../../builds"                                                           # relative to setted above new location
 
 
 Write-Host -------------------------------------------------------------------------------
-Write-Host PACKING Facebook.Core Release for .NET Core...
+Write-Host PACKING Facebook.Api.Client Release
 Write-Host -------------------------------------------------------------------------------
 
 

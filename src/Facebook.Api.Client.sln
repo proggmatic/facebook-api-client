@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facebook.Api.Client", "Facebook.Core\Facebook.Api.Client.csproj", "{6FE1318C-2F20-4A20-9C99-44641C45E352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facebook.Api.Client", "Facebook.Api.Client\Facebook.Api.Client.csproj", "{6FE1318C-2F20-4A20-9C99-44641C45E352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleClient", "TestConsoleClient\TestConsoleClient.csproj", "{006FECDA-7B96-43D4-A84B-4BF7AEBD6E6C}"
 EndProject
