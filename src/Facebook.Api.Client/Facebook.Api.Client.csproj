@@ -4,11 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <RootNamespace>Facebook</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.5.0</Version>
+    <Version>1.5.2</Version>
     <PackageId>Facebook.Api.Client</PackageId>
 
     <Title>Facebook API client</Title>

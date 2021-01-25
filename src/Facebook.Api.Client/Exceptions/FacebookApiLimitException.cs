@@ -32,7 +32,7 @@ namespace Facebook
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="errorType">The error type.</param>
-        public FacebookApiLimitException(string message, string errorType = default)
+        public FacebookApiLimitException(string message, string? errorType = default)
             : base(message, errorType)
         {
         }

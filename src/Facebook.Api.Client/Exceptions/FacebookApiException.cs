@@ -17,7 +17,7 @@ namespace Facebook
         /// </summary>
         /// <value>The type of the error.</value>
         [JsonPropertyName("type")]
-        public string ErrorType { get; set; }
+        public string? ErrorType { get; set; }
 
         /// <summary>
         /// Gets or sets the code of the error.
@@ -37,16 +37,16 @@ namespace Facebook
         /// Gets or sets the error user title.
         /// </summary>
         [JsonPropertyName("error_user_title")]
-        public string ErrorUserTitle { get; set; }
+        public string? ErrorUserTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the error user message.
         /// </summary>
         [JsonPropertyName("error_user_msg")]
-        public string ErrorUserMsg { get; set; }
+        public string? ErrorUserMsg { get; set; }
 
         [JsonPropertyName("fbtrace_id")]
-        public string FbTraceId { get; set; }
+        public string? FbTraceId { get; set; }
 
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Facebook
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="errorType">Type of the error.</param>
-        public FacebookApiException(string message, string errorType)
+        public FacebookApiException(string message, string? errorType)
             : this(string.Format(CultureInfo.InvariantCulture, "({0}) {1}", errorType ?? "Unknown", message))
         {
             ErrorType = errorType;
@@ -92,7 +92,7 @@ namespace Facebook
         /// <param name="message">The message.</param>
         /// <param name="errorType">Type of the error.</param>
         /// <param name="errorCode">Code of the error.</param>
-        public FacebookApiException(string message, string errorType, int errorCode)
+        public FacebookApiException(string message, string? errorType, int errorCode)
             : this(string.Format(CultureInfo.InvariantCulture, "({0} - #{1}) {2}", errorType ?? "Unknown", errorCode, message))
         {
             ErrorType = errorType;
@@ -106,7 +106,7 @@ namespace Facebook
         /// <param name="errorType">Type of the error.</param>
         /// <param name="errorCode">Code of the error.</param>
         /// <param name="errorSubcode">Subcode of the error.</param>
-        public FacebookApiException(string message, string errorType, int errorCode, int errorSubcode)
+        public FacebookApiException(string message, string? errorType, int errorCode, int errorSubcode)
             : this(message, errorType, errorCode)
         {
             ErrorSubcode = errorSubcode;

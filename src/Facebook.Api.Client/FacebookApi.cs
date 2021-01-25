@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -14,15 +15,17 @@ namespace Facebook
 {
     public class FacebookApi
     {
-        private readonly IOptionsSnapshot<FacebookApiConfig> _facebookApiConfig;
+        private readonly IOptionsSnapshot<FacebookApiConfig>? _facebookApiConfig;
         private readonly HttpClient _httpClient;
 
-        public string AccessToken { get; set; }
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new(JsonSerializerDefaults.Web);
 
-        public string ApiVersion { get; }
+        public string? AccessToken { get; set; }
+
+        public string? ApiVersion { get; }
 
 
-        public FacebookApi(string accessToken, string apiVersion = null)
+        public FacebookApi(string accessToken, string? apiVersion = null)
         {
             _httpClient = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
             _httpClient.DefaultRequestHeaders.Clear();
@@ -39,53 +42,44 @@ namespace Facebook
         }
 
 
-        public Task<dynamic> GetAsync(string url, CancellationToken cancellationToken = default) => GetAsync<dynamic>(url, cancellationToken);
+        public Task<dynamic?> GetAsync(string url, CancellationToken cancellationToken = default) => GetAsync<dynamic>(url, cancellationToken);
 
 
-        public async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken = default)
+        public async Task<T?> GetAsync<T>(string url, CancellationToken cancellationToken = default)
         {
             ProcessUrl(ref url);
 
             var response = await _httpClient.GetAsync(url, cancellationToken).ConfigureAwait(false);
             EnsureSuccessResponse(response);
 
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            T result = JsonSerializer.Deserialize<T>(content);
-            return result;
+            return await response.Content.ReadFromJsonAsync<T>(_jsonSerializerOptions, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task<T> PostAsync<T>(string url, object body, CancellationToken cancellationToken = default)
+        public async Task<T?> PostAsync<T>(string url, object body, CancellationToken cancellationToken = default)
         {
             ProcessUrl(ref url);
 
-            var response = await _httpClient.PostAsync(url, new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json"), cancellationToken).ConfigureAwait(false);
+            var response = await _httpClient.PostAsJsonAsync(url, body, cancellationToken).ConfigureAwait(false);
             EnsureSuccessResponse(response);
 
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            T result = JsonSerializer.Deserialize<T>(content);
-            return result;
+            return await response.Content.ReadFromJsonAsync<T>(_jsonSerializerOptions, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task<T> DeleteAsync<T>(string url, CancellationToken cancellationToken = default)
+        public async Task<T?> DeleteAsync<T>(string url, CancellationToken cancellationToken = default)
         {
             ProcessUrl(ref url);
 
             var response = await _httpClient.DeleteAsync(url, cancellationToken).ConfigureAwait(false);
             EnsureSuccessResponse(response);
 
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            T result = JsonSerializer.Deserialize<T>(content);
-            return result;
+            return await response.Content.ReadFromJsonAsync<T>(_jsonSerializerOptions, cancellationToken).ConfigureAwait(false);
         }
 
 
         protected void ProcessUrl(ref string url)
         {
-            var sBuilder = new StringBuilder(35 + (url?.Length ?? 0) + (this.AccessToken?.Length ?? 0));
-            if (url?.StartsWith("http", StringComparison.OrdinalIgnoreCase) != true)
+            var sBuilder = new StringBuilder(35 + url.Length + (this.AccessToken?.Length ?? 0));
+            if (url.StartsWith("http", StringComparison.OrdinalIgnoreCase) != true)
             {
                 sBuilder.Append("https://graph.facebook.com/");
 
@@ -95,8 +89,8 @@ namespace Facebook
                     sBuilder.Append("v").Append(_facebookApiConfig?.Value?.ApiVersion).Append("/");
             }
 
-            sBuilder.Append(url?.StartsWith("/") == true ? url.Substring(1) : url);
-            sBuilder.Append(url?.Contains("?") == true ? "&" : "?");
+            sBuilder.Append(url.StartsWith("/") ? url.Substring(1) : url);
+            sBuilder.Append(url.Contains("?") ? "&" : "?");
             sBuilder.Append("access_token=").Append(this.AccessToken);
 
             url = sBuilder.ToString();
@@ -107,9 +101,8 @@ namespace Facebook
             if (response.StatusCode == HttpStatusCode.OK)
                 return;
 
-            var content = response.Content.ReadAsStringAsync().Result;
+            var error = response.Content.ReadFromJsonAsync<FacebookGenericError>().Result?.Error!;
 
-            var error = JsonSerializer.Deserialize<FacebookGenericError>(content).Error;
             if (string.Equals(error.Type, "OAuthException", StringComparison.OrdinalIgnoreCase))
                 throw new FacebookOAuthException(error);
 

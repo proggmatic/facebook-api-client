@@ -16,17 +16,17 @@ namespace Facebook
         /// <remarks>
         /// https://developers.facebook.com/docs/oauth/errors/
         /// </remarks>
-        public virtual string Error { get; }
+        public virtual string? Error { get; }
 
         /// <summary>
         /// Gets the short error reason for failed authentication if an error occurred.
         /// </summary>
-        public virtual string ErrorReason { get; }
+        public virtual string? ErrorReason { get; }
 
         /// <summary>
         /// Gets the long error description for failed authentication if an error occurred.
         /// </summary>
-        public virtual string ErrorDescription { get; }
+        public virtual string? ErrorDescription { get; }
 
         /// <summary>
         /// Gets the <see cref="DateTime"/> when the access token will expire.
@@ -36,17 +36,17 @@ namespace Facebook
         /// <summary>
         /// Gets the access token.
         /// </summary>
-        public virtual string AccessToken { get; }
+        public virtual string? AccessToken { get; }
 
         /// <summary>
         /// Gets the code used to exchange with Facebook to retrieve access token.
         /// </summary>
-        public virtual string Code { get; }
+        public virtual string? Code { get; }
 
         /// <summary>
         /// Gets an opaque state used to maintain application state between the request and callback.
         /// </summary>
-        public virtual string State { get; }
+        public virtual string? State { get; }
 
 
         /// <summary>

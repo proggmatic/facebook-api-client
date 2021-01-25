@@ -34,7 +34,7 @@ namespace Facebook
         /// <param name="errorType">Type of the error.</param>
         /// <param name="errorCode">Code of the error.</param>
         /// <param name="errorSubcode">Subcode of the error.</param>
-        public FacebookOAuthException(string message, string errorType = default, int errorCode = default, int errorSubcode = default)
+        public FacebookOAuthException(string message, string? errorType = default, int errorCode = default, int errorSubcode = default)
             : base(message, errorType, errorCode, errorSubcode)
         {
         }

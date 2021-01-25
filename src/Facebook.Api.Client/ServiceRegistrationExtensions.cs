@@ -12,18 +12,19 @@ namespace Facebook
     {
         internal const string HTTP_CLIENT_NAME = "FacebookApiHttpClient";
 
-        public static IServiceCollection AddFacebookAPI(this IServiceCollection services, IConfiguration configuration = null, string configurationSection = "facebookApi")
+        public static IServiceCollection AddFacebookAPI(this IServiceCollection services, IConfiguration? configuration = null, string configurationSection = "facebookApi")
         {
             if (configuration != null && !string.IsNullOrEmpty(configurationSection))
                 services.Configure<FacebookApiConfig>(configuration.GetSection(configurationSection));
 
-            services.AddHttpClient(HTTP_CLIENT_NAME, (serviceProvider, client) =>
+            services.AddHttpClient(HTTP_CLIENT_NAME, client =>
                 {
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders
                         .Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 })
-                .ConfigureHttpMessageHandlerBuilder(config => config.PrimaryHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+                .ConfigureHttpMessageHandlerBuilder(config =>
+                    config.PrimaryHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
 
             return services;
         }
