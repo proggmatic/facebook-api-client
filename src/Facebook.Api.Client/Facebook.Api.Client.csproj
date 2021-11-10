@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <RootNamespace>Facebook</RootNamespace>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.5.2</Version>
+    <Version>1.6.0</Version>
     <PackageId>Facebook.Api.Client</PackageId>
 
     <Title>Facebook API client</Title>
