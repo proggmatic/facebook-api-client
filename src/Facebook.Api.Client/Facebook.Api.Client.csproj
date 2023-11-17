@@ -1,21 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <RootNamespace>Facebook</RootNamespace>
+
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.6.0</Version>
+    <Version>1.8.0</Version>
     <PackageId>Facebook.Api.Client</PackageId>
 
     <Title>Facebook API client</Title>
     <AssemblyTitle>Facebook API client</AssemblyTitle>
     <Authors>Oleg Kuznetsov</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>Simple client for Facebook API for .NET Core. Based on HttpClient and Json.NET</Description>
+    <Description>Simple client for Facebook API for .NET Core. Based on HttpClient and System.Text.Json</Description>
     <PackageTags>Facebook,netcore</PackageTags>
 
     <PackageReleaseNotes>Initial version. Basic functionality only.</PackageReleaseNotes>

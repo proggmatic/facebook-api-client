@@ -1,13 +1,12 @@
-﻿namespace Facebook
+﻿namespace Facebook;
+
+public class FacebookApiConfig
 {
-    public class FacebookApiConfig
-    {
-        public string? ApiVersion { get; set; }
+    public string? ApiVersion { get; set; }
 
-        public string AppId { get; set; } = null!;
+    public string AppId { get; set; } = null!;
 
-        public string AppSecret { get; set; } = null!;
+    public string AppSecret { get; set; } = null!;
 
-        public string AppRedirectUrl { get; set; } = null!;
-    }
+    public string AppRedirectUrl { get; set; } = null!;
 }
